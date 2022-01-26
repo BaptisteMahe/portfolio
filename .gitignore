@@ -1,0 +1,10 @@
+# Compiled output
+dist/
+.cache/
+
+# IDE
+.idea/
+
+# Dependencies
+node_modules/
+
