@@ -6,9 +6,6 @@ import { Shape } from "./shapes/shape";
 
 export class QuadTree {
 
-  boundary: Rectangle;
-  capacity: number;
-
   points: Point[];
 
   northwest: QuadTree;
@@ -17,9 +14,8 @@ export class QuadTree {
   southeast: QuadTree;
   divided: boolean;
 
-  constructor(boundary, capacity) {
-    this.boundary = boundary;
-    this.capacity = capacity;
+  constructor(private boundary: Rectangle,
+              private readonly capacity: number) {
     this.points = [];
     this.divided = false;
   }
@@ -48,7 +44,7 @@ export class QuadTree {
     this.divided = true;
   }
 
-  insert(point): boolean {
+  insert(point: Point): boolean {
     if (!this.boundary.contains(point)) return false;
 
     if (this.points.length < this.capacity) {

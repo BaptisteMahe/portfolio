@@ -4,15 +4,11 @@ import { Shape } from "./shape";
 
 export class Circle implements Shape {
 
-  x: number;
-  y: number;
-  r: number;
   rSquared: number;
 
-  constructor(x, y, r) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
+  constructor(private readonly x: number,
+              private readonly y: number,
+              private readonly r: number) {
     this.rSquared = this.r * this.r;
   }
 

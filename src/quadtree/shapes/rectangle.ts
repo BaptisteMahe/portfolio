@@ -3,17 +3,10 @@ import { Shape } from "./shape";
 
 export class Rectangle implements Shape {
 
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-
-  constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-  }
+  constructor(public readonly x: number,
+              public readonly y: number,
+              public readonly w: number,
+              public readonly h: number) { }
 
   contains(point: Point) {
     return point.x >= this.x - this.w

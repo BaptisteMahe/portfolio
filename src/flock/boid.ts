@@ -1,12 +1,10 @@
 import P5 from "p5";
 
-import { Circle } from "./quadtree/shapes/circle";
-import { QuadTree } from "./quadtree/quadtree";
-import { Point } from "./quadtree/point";
+import { Circle } from "../quadtree/shapes/circle";
+import { QuadTree } from "../quadtree/quadtree";
+import { Point } from "../quadtree/point";
 
 export class Boid {
-
-  p5: P5;
 
   position: P5.Vector;
   velocity: P5.Vector;
@@ -15,6 +13,10 @@ export class Boid {
   alignRadius: number;
   cohesionRadius: number;
   separationRadius: number;
+
+  alignCoef: number;
+  cohesionCoef: number;
+  separationCoef: number;
 
   maxSpeed: number;
   maxForce: number;
@@ -25,9 +27,8 @@ export class Boid {
     fill: number[]
   }
 
-  constructor(p5: P5, position: { x: number, y: number }) {
-    this.p5 = p5;
-
+  constructor(private p5: P5,
+              position: { x: number, y: number }) {
     this.position =  this.p5.createVector(position.x, position.y);
     this.velocity = P5.Vector.random2D();
     this.velocity.setMag(this.p5.random(2, 4));
@@ -37,6 +38,10 @@ export class Boid {
     this.cohesionRadius = 50;
     this.separationRadius = 30;
 
+    this.alignCoef = 1;
+    this.cohesionCoef = 1;
+    this.separationCoef = 1.5;
+
     this.maxSpeed = 2;
     this.maxForce = 0.05;
 
@@ -44,7 +49,7 @@ export class Boid {
 
     this.color = {
       stroke: [150],
-      fill: [this.p5.random(200), this.p5.random(200), this.p5.random(200)]
+      fill: [100]
     };
   }
 
@@ -102,7 +107,8 @@ export class Boid {
         });
   }
 
-  flock(quadtree: QuadTree, alignCoef = 1, cohesionCoef = 1, separationCoef = 1) {
+  flock(quadtree: QuadTree, alignCoef = this.alignCoef,
+        cohesionCoef = this.cohesionCoef, separationCoef = this.separationCoef) {
     let alignment = this.align(quadtree);
     let cohesion = this.cohesion(quadtree);
     let separation = this.separation(quadtree);
