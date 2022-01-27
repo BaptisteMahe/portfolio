@@ -20,7 +20,7 @@ export class Flock {
     this.quadtree = new QuadTree(new Rectangle(p5.width / 2, p5.height / 2, p5.width / 2, p5.height / 2), 5);
   }
 
-  update() {
+  update(addOnClick: boolean) {
     this.quadtree.clear();
     for (let boid of this.boids) this.quadtree.insert({ x: boid.position.x, y: boid.position.y, data: boid });
 
@@ -29,6 +29,11 @@ export class Flock {
       boid.flock(this.quadtree);
       boid.update();
       boid.show();
+    }
+
+    if (addOnClick && this.p5.mouseIsPressed && this.p5.mouseX < this.p5.width && this.p5.mouseY < this.p5.height) {
+      this.add(new Boid(this.p5, { x: this.p5.mouseX, y: this.p5.mouseY }));
+      // console.log("Size: " + flock.size(), "Frame rate: " + p5.frameRate());
     }
   }
 

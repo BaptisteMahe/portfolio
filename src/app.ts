@@ -1,7 +1,6 @@
 import P5 from "p5";
 
 import { Flock } from "./flock/flock";
-import { Boid } from "./flock/boid";
 
 const sketch = (p5: P5) => {
 
@@ -10,9 +9,20 @@ const sketch = (p5: P5) => {
 
   let flock: Flock;
 
+  let hideFlockButton: HTMLButtonElement;
+  let hideFlock = false;
+
+  let addOnClick = true;
+
   p5.setup = () => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
     canvas.parent("sketch");
+
+    hideFlockButton = document.querySelector("#hide-flock-button");
+    hideFlockButton.onclick = () => {
+      hideFlock = !hideFlock;
+      hideFlockButton.textContent = `${ hideFlock ? 'Show' : 'Hide' } flock`
+    }
 
     flock = new Flock(p5, FLOCK_START_SIZE, FLOCK_MAX_SIZE);
   };
@@ -20,12 +30,7 @@ const sketch = (p5: P5) => {
   p5.draw = () => {
     p5.background(0);
 
-    flock.update();
-
-    if (p5.mouseIsPressed && p5.mouseX < p5.width && p5.mouseY < p5.height) {
-      flock.add(new Boid(p5, { x: p5.mouseX, y: p5.mouseY }));
-      console.log("Size: " + flock.size(), "Frame rate: " + p5.frameRate());
-    }
+    if (!hideFlock) flock.update(addOnClick);
   };
 
   p5.windowResized = () => {

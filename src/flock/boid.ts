@@ -48,8 +48,8 @@ export class Boid {
     this.size = 15;
 
     this.color = {
-      stroke: [150],
-      fill: [100]
+      stroke: [100],
+      fill: [50]
     };
   }
 
@@ -65,14 +65,14 @@ export class Boid {
                       onOtherFound: (other: Point, steering: P5.Vector) => void,
                       onAfterCompute?: (steering: P5.Vector) => void): P5.Vector {
     let steering = this.p5.createVector();
-    let flockMates = quadtree.query(new Circle(this.position.x, this.position.y, radius));
+    let flockMates = quadtree.query(new Circle(this.position.x, this.position.y, radius)) || [];
 
     for (let other of flockMates) {
       if (other.data === this) continue;
       onOtherFound(other, steering);
     }
 
-    if (flockMates.length - 1 > 0) {
+    if (flockMates?.length - 1 > 0) {
       steering.div(flockMates.length - 1);
       if (onAfterCompute) onAfterCompute(steering);
       steering.setMag(this.maxSpeed);
