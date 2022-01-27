@@ -11,19 +11,11 @@ const sketch = (p5: P5) => {
   const FLOCK_START_SIZE = 200;
   const FLOCK_MAX_SIZE = 1000;
 
-  let alignSlider: P5.Element;
-  let cohesionSlider: P5.Element;
-  let separationSlider: P5.Element;
-
   let quadtree: QuadTree;
 
   p5.setup = () => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
     canvas.parent("app");
-
-    alignSlider = createSliderWithLabel(p5, "Alignment", 0, 5, 1, 0.1);
-    cohesionSlider = createSliderWithLabel(p5, "Cohesion", 0, 5, 1, 0.1);
-    separationSlider = createSliderWithLabel(p5, "Separation", 0, 5, 1.5, 0.1);
 
     for (let index = 0; index < FLOCK_START_SIZE; index++)
       flock.push(new Boid(p5, { x: p5.random(p5.width), y: p5.random(p5.height) }));
@@ -36,14 +28,10 @@ const sketch = (p5: P5) => {
 
     quadtree.clear();
     for (let boid of flock) quadtree.insert({ x: boid.position.x, y: boid.position.y, data: boid });
-    quadtree.show(p5);
 
     for (let boid of flock) {
       boid.edges();
-      boid.flock(quadtree,
-          alignSlider.value() as number,
-          cohesionSlider.value() as number,
-          separationSlider.value() as number);
+      boid.flock(quadtree);
       boid.update();
       boid.show();
     }
@@ -62,12 +50,3 @@ const sketch = (p5: P5) => {
 };
 
 new P5(sketch);
-
-function createSliderWithLabel(p5: P5, label: string, start: number, stop: number,
-                               init: number, step: number): P5.Element {
-  const labelDiv = p5.createDiv(label);
-  labelDiv.addClass("slider")
-  const slider = p5.createSlider(start, stop, init, step);
-  slider.parent(labelDiv);
-  return slider;
-}

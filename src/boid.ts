@@ -102,7 +102,7 @@ export class Boid {
         });
   }
 
-  flock(quadtree: QuadTree, alignCoef: number, cohesionCoef: number, separationCoef: number) {
+  flock(quadtree: QuadTree, alignCoef = 1, cohesionCoef = 1, separationCoef = 1) {
     let alignment = this.align(quadtree);
     let cohesion = this.cohesion(quadtree);
     let separation = this.separation(quadtree);
