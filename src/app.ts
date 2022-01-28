@@ -5,7 +5,7 @@ import { Flock } from "./flock/flock";
 const sketch = (p5: P5) => {
 
   const FLOCK_START_SIZE = 200;
-  const FLOCK_MAX_SIZE = 1000;
+  const FLOCK_MAX_SIZE = 400;
 
   let flock: Flock;
 
