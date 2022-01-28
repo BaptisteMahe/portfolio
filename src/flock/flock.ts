@@ -31,10 +31,8 @@ export class Flock {
       boid.show();
     }
 
-    if (addOnClick && this.p5.mouseIsPressed && this.p5.mouseX < this.p5.width && this.p5.mouseY < this.p5.height) {
+    if (addOnClick && this.p5.mouseIsPressed && this.p5.mouseX < this.p5.width && this.p5.mouseY < this.p5.height)
       this.add(new Boid(this.p5, { x: this.p5.mouseX, y: this.p5.mouseY }));
-      // console.log("Size: " + flock.size(), "Frame rate: " + p5.frameRate());
-    }
   }
 
   add(boid: Boid) {

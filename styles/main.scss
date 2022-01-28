@@ -10,6 +10,8 @@ body {
 
   color: white;
   background-color: black;
+
+  font-size: 30px;
 }
 
 #sketch {
@@ -102,20 +104,99 @@ body {
       font-size: 40px;
     }
 
-    .stacks-content {
-      a {
-        text-decoration: none;
+    .stacks-section {
 
-        & > img {
-          margin: 5px 10px;
-          width: 70px;
-          height: 70px;
+      .stacks-content {
+
+        a {
+          text-decoration: none;
+
+          & > img {
+            margin: 5px 10px;
+            width: 70px;
+            height: 70px;
+          }
+
+          .png-img {
+            width: auto;
+            height: auto;
+            max-width: 70px;
+          }
         }
+      }
+    }
 
-        .png-img {
-          width: auto;
-          height: auto;
-          max-width: 70px;
+    .projects-section {
+
+      .projects-list {
+        display: flex;
+
+        .project-link {
+          padding: 15px;
+          margin: 10px;
+
+          color: white;
+          border-radius: 10px;
+          border: 2px solid white;
+          background-color: rgba(255, 255, 255, 0.2);
+
+          text-decoration: none;
+          font-size: 15px;
+
+          .project-img {
+            height: 120px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+
+    .education-section {
+
+      .centrale-logo {
+        height: 200px;
+        margin-bottom: 10px;
+      }
+
+      .resume-sub-section {
+        margin-top: 10px;
+
+        .resume-links {
+          display: flex;
+          justify-content: center;
+
+          margin-top: 10px;
+
+          a {
+            text-decoration: none;
+            margin: 0 15px;
+
+            & > img {
+              width: 70px;
+              height: 80px;
+            }
+
+            & > div {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    .contact-section {
+
+      .social-networks {
+        display: flex;
+        justify-content: center;
+
+        .contact-link {
+          margin: 0 15px;
+
+          & > img {
+            width: 70px;
+            height: 70px;
+          }
         }
       }
     }
