@@ -49,6 +49,7 @@ body {
 .content-container {
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
@@ -88,6 +89,29 @@ body {
 
         :nth-child(n + 2) {
           font-size: 30px;
+        }
+      }
+    }
+
+    .stacks-title {
+      margin: 15px 0;
+      font-size: 30px;
+    }
+
+    .stacks-content {
+      a {
+        text-decoration: none;
+
+        & > img {
+          margin: 5px 10px;
+          width: 70px;
+          height: 70px;
+        }
+
+        .png-img {
+          width: auto;
+          height: auto;
+          max-width: 70px;
         }
       }
     }
