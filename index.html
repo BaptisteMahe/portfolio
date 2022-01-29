@@ -14,7 +14,10 @@
 
     <body>
         <div id="sketch">
-            <button id="hide-flock-button">Hide flock</button>
+            <div class="global-actions">
+                <button id="hide-flock-button" class="big-button">Hide flock</button>
+                <button id="hide-content-button" class="big-button">Hide text</button>
+            </div>
             <div class="content-container">
                 <div class="content-wrapper">
                     <h1 class="title">Welcome !</h1>
@@ -124,22 +127,22 @@
 
                         <div class="projects-list">
                             <a class="project-link" href="https://github.com/BaptisteMahe/0xp" target="_blank">
-                                <img class="project-img" src="./assets/0xp-logo-white.svg">
+                                <img class="project-img" src="./assets/0xp-logo-white.svg" alt="0xp project logo">
                                 <div>A Web App to replace Centrale Marseille's internship app</div>
                             </a>
 
                             <a class="project-link" href="https://github.com/Alfresco/alfresco-ng2-components" target="_blank">
-                                <img class="project-img"  src="./assets/alfresco.svg">
+                                <img class="project-img"  src="./assets/alfresco.svg" alt="alfresco logo">
                                 <div>Alfresco's open source Angular library for content management</div>
                             </a>
 
                             <a class="project-link" href="https://github.com/BaptisteMahe/my-drive" target="_blank">
-                                <img class="project-img"  src="./assets/ovhshare.png">
+                                <img class="project-img"  src="./assets/ovhshare.png" alt="ovhshare logo">
                                 <div>Simple drive app for file upload and download</div>
                             </a>
 
                             <a class="project-link" href="https://github.com/BaptisteMahe/portfolio" target="_blank">
-                                <img class="project-img"  src="./assets/0xp-logo-white.svg">
+                                <img class="project-img"  src="./assets/0xp-logo-white.svg" alt="website logo">
                                 <div>Source code of this website</div>
                             </a>
                         </div>
@@ -152,11 +155,11 @@
                             <div>More about that on my <b>resume</b> :</div>
                             <div class="resume-links">
                                 <a href="https://baptistemahe.github.io/resume/curriculum.pdf" target="_blank">
-                                    <img src="./assets/document.svg" alt="resume-french">
+                                    <img src="./assets/document.svg" alt="resume in french">
                                     <div>French</div>
                                 </a>
                                 <a href="https://baptistemahe.github.io/resume/resume.pdf" target="_blank">
-                                    <img src="./assets/document.svg" alt="resume-english">
+                                    <img src="./assets/document.svg" alt="resume in english">
                                     <div>English</div>
                                 </a>
                             </div>
@@ -165,7 +168,7 @@
 
                     <section class="passion-section">
                         <h1>My Passion</h1>
-                        <img src="./assets/clean-code.jpg">
+                        <img id="clean-code-img" src="./assets/clean-code.jpg" alt="clean code cover">
                     </section>
 
                     <section class="contact-section">
@@ -173,20 +176,21 @@
 
                         <div class="social-networks">
                             <a class="contact-link" href="https://www.linkedin.com/in/baptistemahe/">
-                                <img src="./assets/linkedin-icon.svg">
+                                <img src="./assets/linkedin-icon.svg" alt="linkedin icon">
                             </a>
 
                             <a class="contact-link" href="https://github.com/BaptisteMahe">
-                                <img src="./assets/github.svg">
+                                <img src="./assets/github.svg" alt="github icon">
                             </a>
                             <a class="contact-link" href="mailto: baptiste.mahe@centrale-marseille.fr">
-                                <img src="./assets/mail.svg">
+                                <img src="./assets/mail.svg" alt="mail icon">
                             </a>
                         </div>
                     </section>
                 </div>
             </div>
         </div>
+
         <script src="src/app.ts"></script>
     </body>
 </html>
