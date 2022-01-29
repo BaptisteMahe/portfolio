@@ -249,9 +249,16 @@ h1 {
 // Medias for small screens
 
 @media screen and (max-width: 600px) {
-  $content-max-size: 100%;
+  $content-max-size: 95%;
 
-  .content-container {
+  .global-actions {
+    .big-button {
+      padding: 5px 10px;
+      font-size: 15px;
+    }
+  }
+
+    .content-container {
     .content-wrapper {
       .title {
         font-size: 50px;

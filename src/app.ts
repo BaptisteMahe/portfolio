@@ -49,7 +49,7 @@ const sketch = (p5: P5) => {
 
     contentContainer.onscroll = () => {
       setOpacityOnScroll(fadeInElements, contentContainer.scrollTop);
-      setOpacityOnScroll(contactLinks, contentContainer.scrollTop, 1);
+      setOpacityOnScroll(contactLinks, contentContainer.scrollTop);
 
       if (contentContainer.scrollTop + window.innerHeight >= contentContainer.scrollHeight)
         contactLinks.forEach(contactLink => contactLink.classList.add("contact-link-animation"));
@@ -74,7 +74,7 @@ const sketch = (p5: P5) => {
 
 new P5(sketch);
 
-function setOpacityOnScroll(elements: HTMLElement[] | NodeListOf<HTMLElement>, currentScroll: number, heightCoef = 2) {
+function setOpacityOnScroll(elements: HTMLElement[] | NodeListOf<HTMLElement>, currentScroll: number, heightCoef = 1) {
   elements.forEach(element => {
     element.style.opacity = String((currentScroll + window.innerHeight - element.offsetTop) / (heightCoef * element.scrollHeight))
   });
