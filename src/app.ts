@@ -16,6 +16,7 @@ const sketch = (p5: P5) => {
   let hideContent = false;
 
   let addBoidOnClick = true;
+  let boidController: HTMLDivElement;
 
   let contentContainer: HTMLDivElement;
   let fadeInElements: HTMLElement[] = [];
@@ -32,12 +33,14 @@ const sketch = (p5: P5) => {
     }
 
     contentContainer = document.querySelector(".content-container");
+    boidController = document.querySelector(".boid-controller");
 
     hideContentButton = document.querySelector("#hide-content-button");
     hideContentButton.onclick = () => {
       hideContent = !hideContent;
       hideContentButton.textContent = `${ hideContent ? 'Show' : 'Hide' } text`;
       hideContent ? contentContainer.classList.add('hidden') : contentContainer.classList.remove('hidden');
+      hideContent ? boidController.classList.remove('hidden') : boidController.classList.add('hidden');
     }
 
     document.querySelectorAll(".stacks-content > a > img")
