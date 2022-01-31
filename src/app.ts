@@ -15,7 +15,7 @@ const sketch = (p5: P5) => {
   let hideContentButton: HTMLButtonElement;
   let hideContent = false;
 
-  let addBoidOnClick = true;
+  let addOnClick = true;
   let boidController: HTMLDivElement;
 
   let contentContainer: HTMLDivElement;
@@ -65,7 +65,7 @@ const sketch = (p5: P5) => {
 
   p5.draw = () => {
     p5.background(0);
-    if (!hideFlock) flock.update(addBoidOnClick);
+    if (!hideFlock) flock.update({ addOnClick });
   };
 
   p5.windowResized = () => {

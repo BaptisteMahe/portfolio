@@ -107,8 +107,22 @@ export class Boid {
         });
   }
 
-  flock(quadtree: QuadTree, alignCoef = this.alignCoef,
-        cohesionCoef = this.cohesionCoef, separationCoef = this.separationCoef) {
+  flock(quadtree: QuadTree,
+        alignCoef = this.alignCoef,
+        cohesionCoef = this.cohesionCoef,
+        separationCoef = this.separationCoef,
+        alignRadius = this.alignRadius,
+        cohesionRadius = this.cohesionRadius,
+        separationRadius = this.separationRadius,
+        maxSpeed = this.maxSpeed,
+        maxForce =  this.maxForce) {
+
+    this.alignRadius = alignRadius;
+    this.cohesionRadius = cohesionRadius;
+    this.separationRadius = separationRadius;
+    this.maxSpeed = maxSpeed;
+    this.maxForce = maxForce;
+
     let alignment = this.align(quadtree);
     let cohesion = this.cohesion(quadtree);
     let separation = this.separation(quadtree);
@@ -129,7 +143,7 @@ export class Boid {
     this.acceleration.mult(0);
   }
 
-  show(debug = false) {
+  show(showRadius = false) {
     const forward = this.velocity.copy();
     forward.setMag(this.size);
     const left = forward.copy().rotate(2 * this.p5.PI / 3);
@@ -147,7 +161,7 @@ export class Boid {
         this.position.x + right.x,
         this.position.y + right.y);
 
-    if (debug) {
+    if (showRadius) {
       this.p5.strokeWeight(1);
       this.p5.stroke(0, 0, 255);
       this.p5.noFill();
