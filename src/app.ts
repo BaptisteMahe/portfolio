@@ -1,6 +1,11 @@
 import P5 from "p5";
 
 import { Flock } from "./flock/flock";
+import {
+  DEFAULT_ALIGN_COEFFICIENT, DEFAULT_ALIGN_RADIUS,
+  DEFAULT_COHESION_COEFFICIENT, DEFAULT_COHESION_RADIUS, DEFAULT_MAX_FORCE, DEFAULT_MAX_SPEED,
+  DEFAULT_SEPARATION_COEFFICIENT, DEFAULT_SEPARATION_RADIUS
+} from "./flock/constant";
 
 const sketch = (p5: P5) => {
 
@@ -15,8 +20,27 @@ const sketch = (p5: P5) => {
   let hideContentButton: HTMLButtonElement;
   let hideContent = false;
 
-  let addOnClick = true;
   let boidController: HTMLDivElement;
+
+  let alignCoefficientSlider: P5.Element;
+  let cohesionCoefficientSlider: P5.Element;
+  let separationCoefficientSlider: P5.Element;
+
+  let alignRadiusSlider: P5.Element;
+  let cohesionRadiusSlider: P5.Element;
+  let separationRadiusSlider: P5.Element;
+
+  let maxSpeedSlider: P5.Element;
+  let maxForceSlider: P5.Element;
+
+  let addBoidOnClickButton: HTMLButtonElement;
+  let addBoidOnClick = true;
+
+  let showRadiusButton: HTMLButtonElement;
+  let showRadius = false;
+
+  let showQuadtreeButton: HTMLButtonElement;
+  let showQuadtree = false;
 
   let contentContainer: HTMLDivElement;
   let fadeInElements: HTMLElement[] = [];
@@ -26,14 +50,22 @@ const sketch = (p5: P5) => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight);
     canvas.parent("sketch");
 
+    alignCoefficientSlider = createSlider("align-coefficient-slider", DEFAULT_ALIGN_COEFFICIENT);
+    cohesionCoefficientSlider = createSlider("cohesion-coefficient-slider", DEFAULT_COHESION_COEFFICIENT);
+    separationCoefficientSlider = createSlider("separation-coefficient-slider", DEFAULT_SEPARATION_COEFFICIENT);
+
+    alignRadiusSlider = createSlider("align-radius-slider", DEFAULT_ALIGN_RADIUS);
+    cohesionRadiusSlider = createSlider("cohesion-radius-slider", DEFAULT_COHESION_RADIUS);
+    separationRadiusSlider = createSlider("separation-radius-slider", DEFAULT_SEPARATION_RADIUS);
+
+    maxSpeedSlider = createSlider("max-speed-slider", DEFAULT_MAX_SPEED);
+    maxForceSlider = createSlider("max-force-slider", DEFAULT_MAX_FORCE);
+
     hideFlockButton = document.querySelector("#hide-flock-button");
     hideFlockButton.onclick = () => {
       hideFlock = !hideFlock;
       hideFlockButton.textContent = `${ hideFlock ? 'Show' : 'Hide' } flock`;
     }
-
-    contentContainer = document.querySelector(".content-container");
-    boidController = document.querySelector(".boid-controller");
 
     hideContentButton = document.querySelector("#hide-content-button");
     hideContentButton.onclick = () => {
@@ -42,6 +74,27 @@ const sketch = (p5: P5) => {
       hideContent ? contentContainer.classList.add('hidden') : contentContainer.classList.remove('hidden');
       hideContent ? boidController.classList.remove('hidden') : boidController.classList.add('hidden');
     }
+
+    addBoidOnClickButton = document.querySelector("#add-boid-button");
+    addBoidOnClickButton.onclick = () => {
+      addBoidOnClick = !addBoidOnClick;
+      addBoidOnClickButton.textContent = `${ addBoidOnClick ? 'Add' : 'Remove' } boid on click`;
+    }
+
+    showRadiusButton = document.querySelector("#show-radius-button");
+    showRadiusButton.onclick = () => {
+      showRadius = !showRadius;
+      showRadiusButton.textContent = `${ showRadius ? 'Hide' : 'Show' } radius`;
+    }
+
+    showQuadtreeButton = document.querySelector("#show-quadtree-button");
+    showQuadtreeButton.onclick = () => {
+      showQuadtree = !showQuadtree;
+      showQuadtreeButton.textContent = `${ showQuadtree ? 'Hide' : 'Show' } quadtree`;
+    }
+
+    contentContainer = document.querySelector(".content-container");
+    boidController = document.querySelector(".boid-controller");
 
     document.querySelectorAll(".stacks-content > a > img")
         .forEach(elem => fadeInElements.push(elem as HTMLElement));
@@ -60,12 +113,25 @@ const sketch = (p5: P5) => {
     }
     setOpacityOnScroll(fadeInElements, contentContainer.scrollTop);
 
+
     flock = new Flock(p5, FLOCK_START_SIZE, FLOCK_MAX_SIZE);
   };
 
   p5.draw = () => {
     p5.background(0);
-    if (!hideFlock) flock.update({ addOnClick });
+    if (!hideFlock) flock.update({
+      addBoidOnClick,
+      showQuadtree,
+      showRadius,
+      alignCoefficient: alignCoefficientSlider.value() as number,
+      cohesionCoefficient: cohesionCoefficientSlider.value() as number,
+      separationCoefficient: separationCoefficientSlider.value() as number,
+      alignRadius: alignRadiusSlider.value() as number,
+      cohesionRadius: cohesionRadiusSlider.value() as number,
+      separationRadius: separationRadiusSlider.value() as number,
+      maxSpeed: maxSpeedSlider.value() as number,
+      maxForce: maxForceSlider.value() as number
+    });
   };
 
   p5.windowResized = () => {
@@ -73,9 +139,20 @@ const sketch = (p5: P5) => {
     flock.resizeTank(p5.windowWidth, p5.windowHeight);
     setOpacityOnScroll(fadeInElements, contentContainer.scrollTop);
   };
+
+  function createSlider(parent: string, value: number): P5.Element {
+    const slider = p5.createSlider(0, value * 2, value, value / 10);
+    slider.parent(parent);
+    slider.size(250);
+    return slider;
+  }
 };
 
-new P5(sketch);
+window.onload = () => {
+  new P5(sketch);
+}
+
+
 
 function setOpacityOnScroll(elements: HTMLElement[] | NodeListOf<HTMLElement>, currentScroll: number, heightCoef = 1) {
   elements.forEach(element => {

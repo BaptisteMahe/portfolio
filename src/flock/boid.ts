@@ -3,6 +3,15 @@ import P5 from "p5";
 import { Circle } from "../quadtree/shapes/circle";
 import { QuadTree } from "../quadtree/quadtree";
 import { Point } from "../quadtree/point";
+import { FlockOptions } from "./flock";
+import {
+  DEFAULT_ALIGN_COEFFICIENT,
+  DEFAULT_ALIGN_RADIUS,
+  DEFAULT_COHESION_COEFFICIENT, DEFAULT_COHESION_RADIUS,
+  DEFAULT_MAX_FORCE,
+  DEFAULT_MAX_SPEED,
+  DEFAULT_SEPARATION_COEFFICIENT, DEFAULT_SEPARATION_RADIUS
+} from "./constant";
 
 export class Boid {
 
@@ -14,9 +23,9 @@ export class Boid {
   cohesionRadius: number;
   separationRadius: number;
 
-  alignCoef: number;
-  cohesionCoef: number;
-  separationCoef: number;
+  alignCoefficient: number;
+  cohesionCoefficient: number;
+  separationCoefficient: number;
 
   maxSpeed: number;
   maxForce: number;
@@ -34,16 +43,16 @@ export class Boid {
     this.velocity.setMag(this.p5.random(2, 4));
     this.acceleration = this.p5.createVector();
 
-    this.alignRadius = 100;
-    this.cohesionRadius = 50;
-    this.separationRadius = 30;
+    this.alignRadius = DEFAULT_ALIGN_RADIUS;
+    this.cohesionRadius = DEFAULT_COHESION_RADIUS;
+    this.separationRadius = DEFAULT_SEPARATION_RADIUS;
 
-    this.alignCoef = 1;
-    this.cohesionCoef = 1;
-    this.separationCoef = 1.5;
+    this.alignCoefficient = DEFAULT_ALIGN_COEFFICIENT;
+    this.cohesionCoefficient = DEFAULT_COHESION_COEFFICIENT;
+    this.separationCoefficient = DEFAULT_SEPARATION_COEFFICIENT;
 
-    this.maxSpeed = 2;
-    this.maxForce = 0.05;
+    this.maxSpeed = DEFAULT_MAX_SPEED;
+    this.maxForce = DEFAULT_MAX_FORCE;
 
     this.size = 15;
 
@@ -107,29 +116,21 @@ export class Boid {
         });
   }
 
-  flock(quadtree: QuadTree,
-        alignCoef = this.alignCoef,
-        cohesionCoef = this.cohesionCoef,
-        separationCoef = this.separationCoef,
-        alignRadius = this.alignRadius,
-        cohesionRadius = this.cohesionRadius,
-        separationRadius = this.separationRadius,
-        maxSpeed = this.maxSpeed,
-        maxForce =  this.maxForce) {
+  flock(quadtree: QuadTree, options: FlockOptions) {
 
-    this.alignRadius = alignRadius;
-    this.cohesionRadius = cohesionRadius;
-    this.separationRadius = separationRadius;
-    this.maxSpeed = maxSpeed;
-    this.maxForce = maxForce;
+    this.alignRadius = options.alignRadius;
+    this.cohesionRadius = options.cohesionRadius;
+    this.separationRadius = options.separationRadius;
+    this.maxSpeed = options.maxSpeed;
+    this.maxForce = options.maxForce;
 
     let alignment = this.align(quadtree);
     let cohesion = this.cohesion(quadtree);
     let separation = this.separation(quadtree);
 
-    alignment.mult(alignCoef);
-    cohesion.mult(cohesionCoef);
-    separation.mult(separationCoef);
+    alignment.mult(options.alignCoefficient);
+    cohesion.mult(options.cohesionCoefficient);
+    separation.mult(options.separationCoefficient);
 
     this.acceleration.add(alignment);
     this.acceleration.add(cohesion);

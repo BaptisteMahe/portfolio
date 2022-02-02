@@ -20,26 +20,19 @@ export class Flock {
     this.quadtree = new QuadTree(new Rectangle(p5.width / 2, p5.height / 2, p5.width / 2, p5.height / 2), 5);
   }
 
-  update(options: FlockOptions) {
+  update(options?: FlockOptions) {
     this.quadtree.clear();
     for (let boid of this.boids) this.quadtree.insert({ x: boid.position.x, y: boid.position.y, data: boid });
+    if (options?.showQuadtree) this.quadtree.show(this.p5);
 
     for (let boid of this.boids) {
       boid.edges();
-      boid.flock(this.quadtree,
-          options.alignCoef,
-          options.cohesionCoef,
-          options.separationCoef,
-          options.alignRadius,
-          options.cohesionRadius,
-          options.separationRadius,
-          options.maxSpeed,
-          options.maxForce);
+      boid.flock(this.quadtree, options);
       boid.update();
-      boid.show();
+      boid.show(options.showRadius);
     }
 
-    if (options.addOnClick && this.p5.mouseIsPressed && this.p5.mouseX < this.p5.width && this.p5.mouseY < this.p5.height)
+    if (options?.addBoidOnClick && this.p5.mouseIsPressed && this.p5.mouseX < this.p5.width && this.p5.mouseY < this.p5.height)
       this.add(new Boid(this.p5, { x: this.p5.mouseX, y: this.p5.mouseY }));
   }
 
@@ -61,11 +54,12 @@ export class Flock {
 }
 
 export interface FlockOptions {
-  addOnClick?: boolean;
+  addBoidOnClick?: boolean;
+  showQuadtree?: boolean;
   showRadius?: boolean;
-  alignCoef?: number;
-  cohesionCoef?: number;
-  separationCoef?: number;
+  alignCoefficient?: number;
+  cohesionCoefficient?: number;
+  separationCoefficient?: number;
   alignRadius?: number;
   cohesionRadius?: number;
   separationRadius?: number;

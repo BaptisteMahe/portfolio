@@ -16,34 +16,57 @@
     <body>
         <div id="sketch">
             <div class="global-actions">
-                <button id="hide-flock-button" class="big-button">Hide flock</button>
-                <button id="hide-content-button" class="big-button">Hide text</button>
+                <button id="hide-flock-button" class="button big-button">Hide flock</button>
+                <button id="hide-content-button" class="button big-button">Hide text</button>
             </div>
 
             <div class="boid-controller-wrapper">
                 <div class="boid-controller hidden">
+                    <h1>Boid Controller</h1>
                     <div class="behaviour-controllers">
-                        <div class="coefficients-controllers">
-                            <div class="align-coefficient-slider"></div>
-                            <div class="cohesion-coefficient-slider"></div>
-                            <div class="separation-coefficient-slider"></div>
+                        <div class="coef-and-radius-wrapper">
+                            <div class="coefficients-controllers">
+                                <h5>Coefficients</h5>
+                                <div class="slider-wrapper">
+                                    <div>Align</div>
+                                    <div id="align-coefficient-slider"></div>
+                                </div>
+                                <div class="slider-wrapper">
+                                    <div>Cohesion</div>
+                                    <div id="cohesion-coefficient-slider"></div>
+                                </div>
+                                <div class="slider-wrapper">
+                                    <div>Separation</div>
+                                    <div id="separation-coefficient-slider"></div>
+                                </div>
+                            </div>
+                            <div class="radius-controllers">
+                                <h5>Radius</h5>
+                                <div class="slider-wrapper">
+                                    <div>Align</div>
+                                    <div id="align-radius-slider"></div>
+                                </div>
+                                <div class="slider-wrapper">
+                                    <div>Cohesion</div>
+                                    <div id="cohesion-radius-slider"></div>
+                                </div>
+                                <div class="slider-wrapper">
+                                    <div>Separation</div>
+                                    <div id="separation-radius-slider"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="radius-controllers">
-                            <div class="align-radius-slider"></div>
-                            <div class="cohesion-radius-slider"></div>
-                            <div class="separation-radius-slider"></div>
-                        </div>
-                        <button>Show radius</button>
-                    </div>
-                    <!--
-                     3 * Slider for align, cohesion and separation coefficients
-                     3 * Slider for align, cohesion and separation radius
-                     1 Slider for maxSpeed
-                     1 Slider for maxForce
-                     1 Button to show / hide radius
 
-                     Stuff for predators not yet coded
-                     -->
+                        <h5>Max Speed</h5>
+                        <div id="max-speed-slider"></div>
+                        <h5>Max Force</h5>
+                        <div id="max-force-slider"></div>
+                        <div class="boid-controller-buttons">
+                            <button id="add-boid-button" class="button">Add boid on click</button>
+                            <button id="show-radius-button" class="button">Show radius</button>
+                            <button id="show-quadtree-button" class="button">Show quadtree</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
