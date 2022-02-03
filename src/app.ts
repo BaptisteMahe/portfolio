@@ -42,6 +42,9 @@ const sketch = (p5: P5) => {
   let showQuadtreeButton: HTMLButtonElement;
   let showQuadtree = false;
 
+  let hideBoidControllerButton: HTMLButtonElement;
+  let hideBoidController = false;
+
   let contentContainer: HTMLDivElement;
   let fadeInElements: HTMLElement[] = [];
   let contactLinks: NodeListOf<HTMLAnchorElement>;
@@ -65,7 +68,7 @@ const sketch = (p5: P5) => {
     hideFlockButton.onclick = () => {
       hideFlock = !hideFlock;
       hideFlockButton.textContent = `${ hideFlock ? 'Show' : 'Hide' } flock`;
-    }
+    };
 
     hideContentButton = document.querySelector("#hide-content-button");
     hideContentButton.onclick = () => {
@@ -73,28 +76,41 @@ const sketch = (p5: P5) => {
       hideContentButton.textContent = `${ hideContent ? 'Show' : 'Hide' } text`;
       hideContent ? contentContainer.classList.add('hidden') : contentContainer.classList.remove('hidden');
       hideContent ? boidController.classList.remove('hidden') : boidController.classList.add('hidden');
-    }
+    };
 
     addBoidOnClickButton = document.querySelector("#add-boid-button");
     addBoidOnClickButton.onclick = () => {
       addBoidOnClick = !addBoidOnClick;
-      addBoidOnClickButton.textContent = `${ addBoidOnClick ? 'Add' : 'Remove' } boid on click`;
-    }
+      addBoidOnClickButton.textContent = `${ addBoidOnClick ? 'Stop add': 'Add' } boid on click`;
+    };
 
     showRadiusButton = document.querySelector("#show-radius-button");
     showRadiusButton.onclick = () => {
       showRadius = !showRadius;
       showRadiusButton.textContent = `${ showRadius ? 'Hide' : 'Show' } radius`;
-    }
+    };
 
     showQuadtreeButton = document.querySelector("#show-quadtree-button");
     showQuadtreeButton.onclick = () => {
       showQuadtree = !showQuadtree;
       showQuadtreeButton.textContent = `${ showQuadtree ? 'Hide' : 'Show' } quadtree`;
-    }
+    };
+
+    boidController = document.querySelector(".boid-controller");
+
+    hideBoidControllerButton = document.querySelector(".hide-boid-controller-button");
+    hideBoidControllerButton.onclick = () => {
+      if (hideBoidController) {
+        boidController.style.transform = ("translateY(0px)");
+        setTimeout(() => hideBoidControllerButton.textContent = "Hide controller", 2500);
+      } else {
+        boidController.style.transform = ("translateY(-633px)");
+        setTimeout(() => hideBoidControllerButton.textContent = "Show controller", 2500);
+      }
+      hideBoidController = !hideBoidController;
+    };
 
     contentContainer = document.querySelector(".content-container");
-    boidController = document.querySelector(".boid-controller");
 
     document.querySelectorAll(".stacks-content > a > img")
         .forEach(elem => fadeInElements.push(elem as HTMLElement));
@@ -143,19 +159,24 @@ const sketch = (p5: P5) => {
   function createSlider(parent: string, value: number): P5.Element {
     const slider = p5.createSlider(0, value * 2, value, value / 10);
     slider.parent(parent);
+    displaySliderValue(`#${parent}-value`, slider.value());
     slider.size(250);
+    // @ts-ignore
+    slider.input(() => displaySliderValue(`#${parent}-value`, slider.value()));
     return slider;
   }
 };
 
 window.onload = () => {
   new P5(sketch);
-}
-
-
+};
 
 function setOpacityOnScroll(elements: HTMLElement[] | NodeListOf<HTMLElement>, currentScroll: number, heightCoef = 1) {
   elements.forEach(element => {
     element.style.opacity = String((currentScroll + window.innerHeight - element.offsetTop) / (heightCoef * element.scrollHeight))
   });
+}
+
+function displaySliderValue(placeholderQuerySelector: string, value: number | string) {
+  document.querySelector(placeholderQuerySelector).textContent = value as string;
 }

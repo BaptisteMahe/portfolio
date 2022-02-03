@@ -118,22 +118,22 @@ export class Boid {
 
   flock(quadtree: QuadTree, options: FlockOptions) {
 
-    this.alignRadius = options.alignRadius;
-    this.cohesionRadius = options.cohesionRadius;
-    this.separationRadius = options.separationRadius;
     this.maxSpeed = options.maxSpeed;
     this.maxForce = options.maxForce;
 
+    this.alignRadius = options.alignRadius;
     let alignment = this.align(quadtree);
-    let cohesion = this.cohesion(quadtree);
-    let separation = this.separation(quadtree);
-
     alignment.mult(options.alignCoefficient);
-    cohesion.mult(options.cohesionCoefficient);
-    separation.mult(options.separationCoefficient);
-
     this.acceleration.add(alignment);
+
+    this.cohesionRadius = options.cohesionRadius;
+    let cohesion = this.cohesion(quadtree);
+    cohesion.mult(options.cohesionCoefficient);
     this.acceleration.add(cohesion);
+
+    this.separationRadius = options.separationRadius;
+    let separation = this.separation(quadtree);
+    separation.mult(options.separationCoefficient);
     this.acceleration.add(separation);
   }
 
