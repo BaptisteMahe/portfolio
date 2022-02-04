@@ -74,6 +74,14 @@ a {
     padding: 10px 15px;
     font-size: 20px;
   }
+
+  .mat-announcement-icon {
+    font-family: material icons, serif;
+    position: relative;
+
+    top: -60px;
+    right: -102px;
+  }
 }
 
 .boid-controller-wrapper {
@@ -108,7 +116,7 @@ a {
 
       h5 {
         font-size: 30px;
-        margin: 10px
+        margin: 10px 0 0;
       }
 
       .slider-wrapper {
@@ -127,7 +135,7 @@ a {
         }
       }
 
-      .boid-controller-buttons > button {
+      .boid-controller-buttons :nth-child(2) {
         margin: 15px 5px 0;
       }
     }
@@ -327,19 +335,53 @@ a {
 @media screen and (max-width: 600px) {
   $content-max-size: 95%;
 
+  h1 {
+    font-size: 30px;
+  }
+
   .global-actions {
     .big-button {
       padding: 5px 10px;
       font-size: 15px;
     }
+
+    .mat-announcement-icon {
+      top: -44px;
+      right: -70px;
+    }
   }
 
-    .content-container {
+  .boid-controller-wrapper {
+    .boid-controller {
+      overflow-y: visible;
+      font-size: 15px;
+      .behaviour-controllers {
+
+        h5 {
+          font-size: 20px;
+          margin: 5px 0 0;
+        }
+
+        .slider-wrapper {
+          margin-bottom: 5px;
+        }
+
+        .coef-and-radius-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .content-container {
     .content-wrapper {
       .title {
         font-size: 50px;
       }
+
       max-width: $content-max-size;
+
       .hero {
         .hero-content {
           max-width: $content-max-size;

@@ -17,6 +17,7 @@ const sketch = (p5: P5) => {
   let hideFlockButton: HTMLButtonElement;
   let hideFlock = false;
 
+  let announcementIcon: HTMLDivElement;
   let hideContentButton: HTMLButtonElement;
   let hideContent = false;
 
@@ -70,12 +71,19 @@ const sketch = (p5: P5) => {
       hideFlockButton.textContent = `${ hideFlock ? 'Show' : 'Hide' } flock`;
     };
 
+    announcementIcon = document.querySelector(".mat-announcement-icon");
     hideContentButton = document.querySelector("#hide-content-button");
     hideContentButton.onclick = () => {
       hideContent = !hideContent;
       hideContentButton.textContent = `${ hideContent ? 'Show' : 'Hide' } text`;
-      hideContent ? contentContainer.classList.add('hidden') : contentContainer.classList.remove('hidden');
-      hideContent ? boidController.classList.remove('hidden') : boidController.classList.add('hidden');
+      if (hideContent) {
+        contentContainer.classList.add('hidden');
+        announcementIcon.classList.add('hidden');
+        boidController.classList.remove('hidden');
+      } else {
+        contentContainer.classList.remove('hidden');
+        boidController.classList.add('hidden');
+      }
     };
 
     addBoidOnClickButton = document.querySelector("#add-boid-button");
@@ -104,7 +112,7 @@ const sketch = (p5: P5) => {
         boidController.style.transform = ("translateY(0px)");
         setTimeout(() => hideBoidControllerButton.textContent = "Hide controller", 2500);
       } else {
-        boidController.style.transform = ("translateY(-633px)");
+        boidController.style.transform = (`translateY(-${boidController.scrollHeight - 30}px)`);
         setTimeout(() => hideBoidControllerButton.textContent = "Show controller", 2500);
       }
       hideBoidController = !hideBoidController;
