@@ -168,7 +168,7 @@ const sketch = (p5: P5) => {
     const slider = p5.createSlider(0, value * 2, value, value / 10);
     slider.parent(parent);
     displaySliderValue(`#${parent}-value`, slider.value());
-    slider.size(250);
+    slider.size(p5.windowWidth > 600 ? 250 : 150);
     // @ts-ignore
     slider.input(() => displaySliderValue(`#${parent}-value`, slider.value()));
     return slider;
