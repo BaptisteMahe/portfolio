@@ -14,9 +14,15 @@ body {
   font-size: 30px;
 }
 
+.p5Canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
 #sketch {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 
   > canvas {
     position: absolute;
@@ -336,7 +342,7 @@ a {
   $content-max-size: 95%;
 
   h1 {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .global-actions {
@@ -355,6 +361,12 @@ a {
     .boid-controller {
       overflow-y: visible;
       font-size: 15px;
+
+      & > h1 {
+        margin: 0 0 30px;
+        text-align: left;
+      }
+
       .behaviour-controllers {
 
         h5 {
@@ -372,6 +384,7 @@ a {
   .content-container {
     .content-wrapper {
       .title {
+        margin-top: 70px;
         font-size: 50px;
       }
 
