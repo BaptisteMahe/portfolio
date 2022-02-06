@@ -66,6 +66,8 @@ a {
   top: 0;
   right: 0;
 
+  overflow: hidden;
+
   z-index: 1;
 
   display: flex;
@@ -95,7 +97,6 @@ a {
 .boid-controller-wrapper {
   display: flex;
   justify-content: center;
-  overflow: hidden;
 
   .boid-controller {
     margin-top: -10px;
@@ -273,8 +274,7 @@ a {
     .education-section {
 
       .centrale-logo {
-        height: 150px;
-        max-width: 100%;
+        max-width: 80%;
         margin-bottom: 10px;
       }
 
@@ -296,6 +296,12 @@ a {
             }
           }
         }
+      }
+    }
+
+    .passion-section {
+      #clean-code-img {
+        max-width: 90vw;
       }
     }
 
@@ -382,6 +388,10 @@ a {
         .slider-wrapper {
           margin-bottom: 5px;
         }
+      }
+
+      .hide-boid-controller-button {
+        align-self: flex-start;
       }
     }
   }
